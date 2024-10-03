@@ -1,0 +1,67 @@
+<div class="container">
+    <h4>Product List</h4>
+    <table mat-table [dataSource]="getAllProducts" class="mat-elevation-z2">
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="categoryName">
+            <th mat-header-cell *matHeaderCellDef>Category Name</th>
+            <td mat-cell *matCellDef="let element">{{element.categoryName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let element">{{element.price}}</td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="openDialog(element)" title="Edit">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="onDelete(element.id)" title="Delete">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="productsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: productsColumns;"></tr>
+    </table>
+
+    <button mat-raised-button color="primary" (click)="openDialog()">Add Products</button>
+
+
+    <ng-template #productDialogTemplate>
+        <h2 mat-dialog-title>{{ isEditMode ? 'Edit Category' : 'Add Category' }}</h2>
+        <mat-dialog-content>
+            <form [formGroup]="productForm">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" placeholder="Enter product name">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Price</mat-label>
+                    <input matInput formControlName="price" type="number" placeholder="Enter price" step="0.01" min="0"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="categoryId" required>
+                        <mat-option *ngFor="let category of lstAllCategories" [value]="category.id">
+                            {{ category.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button (click)="onCancel()">Cancel</button>
+            <button mat-button color="primary" *ngIf="isEditMode" (click)="SaveOrUpdate()" title="Edit">Edit</button>
+            <button *ngIf="!isEditMode" mat-button color="primary" (click)="SaveOrUpdate()" title="Save">Save</button>
+        </mat-dialog-actions>
+    </ng-template>
+</div>

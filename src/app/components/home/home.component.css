@@ -1,0 +1,33 @@
+/* .spacer {
+    flex: 1 1 auto;
+  }
+  
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+   */
+
+   mat-sidenav {
+    width: 250px; /* Set the width of the sidebar */
+  }
+  
+  mat-sidenav-container {
+    height: 100vh; /* Full height */
+  }
+  .vertical-sidenav {
+    display: flex;
+    flex-direction: column; /* Ensures the items stack vertically */
+    padding: 10px; /* Add some padding if desired */
+    width: 250px; /* Adjust width as necessary */
+  }
+  
+  .vertical-sidenav h3 {
+    margin-bottom: 20px; /* Space between the header and buttons */
+  }
+  
+  button {
+    margin-bottom: 10px; /* Add space between buttons */
+  }
+  
